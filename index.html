@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Demo for the tree caching</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <div id="header">
+            <div id="firstBtn">
+                <h1>Welcome to Our Tree Caching Trail!</h1>
+                <button id="scan_Code" onClick="getBarcde();">Scan the QR Code</button>                
+                <p id="hint">
+                    You can find the QR codes in the tags attached to the trees.
+                </p>
+            </div>
+            
+            <div id="button-group">
+                <label id="tree_info">This is a Sugar Maple tree</label><br>
+                <div id="helpUs">
+                    <h3>Please Help Us to Know More About This Tree</h3>
+                    <img style="display:none;width:400px;height:400px;" id="smallImage" src="" />
+                    <button onclick="capturePhoto();">Take a picture of this Tree</button><br><br>
+              		<div id="comment">
+                            <h2>Anything that you observe abnormal?</h2>
+                            <form action="#">
+                                <ul>
+                                    <li>
+                                        <label for="comments">Your Observation Goes Here</label>
+                                        <textarea name="comments" cols="40" rows="5" onkeydown="return limitLines(this, event)"></textarea> 
+                                    </li>
+                                    <li>
+                                        <label for="name">Name: </label>
+                                        <input name="name" id="name">
+                                    </li>
+                                    <li>
+                                        <label for="email">Email Address: (optional)</label>
+                                        <input name="email" id="email">
+                                    </li>
+                                    <li>
+                                        <input type="submit" value="Submit" onclick="uploadPic()">
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+<!--                    <button onclick="getLocation();">Current Location</button><br><br>
+                    <button onclick="uploadPic();">Upload Pic</button><br><br><br>-->
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script> 
+        <script type="text/javascript" charset="utf-8" src="ajzx-across-domain.js"></script>
+
+        
+        <script>
+            var pictureSource;   // picture source
+            var destinationType; // sets the format of returned value
+            var imageString;     // store the image to be uploaded   
+            
+            var keynum, lines = 1;
+            var location;
+            // Wait for device API libraries to load
+            //
+ 
+            ( function(){
+                console.log("started");
+                document.addEventListener("deviceready", onDeviceReady, false);        
+              //  $('button-group').hide();
+            })();
+ 
+            // device APIs are available
+            //
+            function onDeviceReady() {
+                pictureSource=navigator.camera.PictureSourceType;
+                destinationType=navigator.camera.DestinationType;
+            }
+            // limit the number of lines that users can enter into the comment area
+            function limitLines(obj, e) {
+              // IE
+              if(window.event) {
+                keynum = e.keyCode;
+              // Netscape/Firefox/Opera
+              } else if(e.which) {
+                keynum = e.which;
+              }
+
+              if(keynum == 13) {
+                if(lines == obj.rows) {
+                  return false;
+                }else{
+                  lines++;
+                }
+              }
+            }
+            
+            function getBarcde(){
+//                $('firstBtnz').fadeOut(300);
+//                    var secondPage= document.getElementById('button-group');
+//                    secondPage.style.display = 'block';
+//                    secondPage.fadeIn(300);
+                cordova.plugins.barcodeScanner.scan(onBarcodeSuccess,onBarcodeErr);
+            }
+
+            function onBarcodeSuccess(result){
+                if( result.cancelled ==false){
+                    alert('We got a barcode\n' +
+                          'Result: ' + result.text + '\n' +
+                          'Format: ' + result.format + '\n' +
+                          'Cancelled: ' + result.cancelled);
+                    $('tree_info').text += '\n'+ result.text;
+                    
+                    // we will take a geolocation call from here and then appended to the tree info field
+                    navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
+                    
+                    //make the first page disappear, and show the second page
+                    $('firstBtnz').fadeOut(300);
+                    var secondPage= document.getElementById('button-group');
+                    secondPage.style.display = 'block';
+                    secondPage.fadeIn(300);
+                }
+            }
+
+            function onBarcodeErr(error){
+                 alert("Scanning Barcode failed: " + error);
+            }
+            
+            // onSuccess Callback
+            // This method accepts a Position object, which contains the
+            // current GPS coordinates
+            //
+            var onLocationSuccess = function(position) {
+                location = 'Latitude: '          + position.coords.latitude          + '\n' +
+                           'Longitude: '         + position.coords.longitude         + '\n' +
+                           'Timestamp: '         + position.timestamp                + '\n';
+                alert(location);   
+            };
+
+            // onError Callback receives a PositionError object
+            //
+            function onLocationError(error) {
+                alert('code: '    + error.code    + '\n' +
+                      'message: ' + error.message + '\n');
+            }
+
+            // take the photo
+            function capturePhoto() {
+                // Take picture using device camera and retrieve image as base64-encoded string
+                navigator.camera.getPicture(onPhotoDataSuccess, onPhotoFail, { quality: 50,
+                  destinationType: destinationType.DATA_URL });
+            }
+
+            // Called when a photo is successfully retrieved
+            //
+            function onPhotoDataSuccess(imageData) {
+            // Uncomment to view the base64-encoded image data
+            // console.log(imageData);
+
+                // Get image handle
+                //
+                var smallImage = document.getElementById('smallImage');
+
+                // Unhide image elements
+                //
+                smallImage.style.display = 'block';
+
+                // Show the captured photo
+                // The in-line CSS rules are used to resize the image
+                //
+                smallImage.src = "data:image/jpeg;base64," + imageData;
+                imageString = imageData;
+            }    
+            
+            
+            function uploadPic(){
+                var options = new FileUploadOptions();
+                options.fileKey="file";
+            //    alert("uploading, name : "+imageString);
+                options.fileName= "test1";//imageString.substr(imageString.lastIndexOf('/')+1);
+
+                options.mimeType="image/jpeg";
+
+                var params = new Object();
+                params.value1 = "test";
+                params.value2 = "param";
+                options.chunkedMode = false;
+
+                options.params = params;
+
+                var ft = new FileTransfer();
+                alert("Uploading data to server. Your location: "+ location);
+                ft.upload(imageString, "http://www.springbaystudio.com/tree/upload.php", win, fail, options, true);
+
+             }
+
+            function win(result){
+                alert("upload done.");
+            }
+
+            function fail(error){
+                //alert("uploading pic fails: err code :"+ error.code);// +", source : "+error.source + ", target : "+error.target +", http_status : "+error.http_status);
+                alert("An error has occurred: Code = " + error.code);
+                console.log("upload error source " + error.source);
+                console.log("upload error target " + error.target);
+            }
+            
+        </script>      
+   </body>
+</html>
