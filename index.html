@@ -11,10 +11,10 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="main.css">
         
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
 <!--        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.js"></script>-->
 <!--        <script type="text/javascript" charset="utf-8" src="cordova.js"></script> -->
-        <script type="text/javascript" charset="utf-8" src="ajzx-across-domain.js"></script>
+<!--        <script type="text/javascript" charset="utf-8" src="ajzx-across-domain.js"></script>-->
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <script type="text/javascript" charset="utf-8"></script>
         
@@ -74,14 +74,16 @@ and open the template in the editor.
                           'Result: ' + result.text + '\n' +
                           'Format: ' + result.format + '\n' +
                           'Cancelled: ' + result.cancelled);
-                    $('tree_info').text += '\n'+ result.text;
+                //    $('tree_info').text += '\n'+ result.text;
                     
                     // we will take a geolocation call from here and then appended to the tree info field
                     navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
                     
                     //make the first page disappear, and show the second page
-                    $('firstBtn').hide();
+                    //$('firstBtn').hide();
                     //$('firstBtn').fadeOut(300);
+                    var firstPage = document.getElementById('firstBtn');
+                    firstPage.hide();
                     var secondPage= document.getElementById('button-group');
                     secondPage.style.display = 'block';
                     secondPage.fadeIn(300);
