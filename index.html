@@ -26,7 +26,7 @@ and open the template in the editor.
                 <div id="helpUs">
                     <h3>Please Help Us to Know More About This Tree</h3>
                     <img style="display:none;width:400px;height:400px;" id="smallImage" src="" />
-                    <button onclick="capturePhoto();">Take a picture of this Tree</button><br><br>
+                    <button onClick="capturePhoto();">Take a picture of this Tree</button><br><br>
               		<div id="comment">
                             <h2>Anything that you observe abnormal?</h2>
                             <form action="#">
@@ -44,7 +44,7 @@ and open the template in the editor.
                                         <input name="email" id="email">
                                     </li>
                                     <li>
-                                        <input type="submit" value="Submit" onclick="uploadPic()">
+                                        <input type="submit" value="Submit" onClick="uploadPic()">
                                     </li>
                                 </ul>
                             </form>
@@ -123,7 +123,8 @@ and open the template in the editor.
                     navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
                     
                     //make the first page disappear, and show the second page
-                    $('firstBtn').fadeOut(300);
+                    $('firstBtn').hide();
+                    //$('firstBtn').fadeOut(300);
                     var secondPage= document.getElementById('button-group');
                     secondPage.style.display = 'block';
                     secondPage.fadeIn(300);
@@ -154,7 +155,7 @@ and open the template in the editor.
 
             // take the photo
             function capturePhoto() {
-                alert("navigator.camera " + navigator.camera);
+                alert('navigator.camera ' + navigator.camera);
                 // Take picture using device camera and retrieve image as base64-encoded string
                 navigator.camera.getPicture(onPhotoDataSuccess, onPhotoFail, { quality: 50,
                   destinationType: destinationType.DATA_URL });
