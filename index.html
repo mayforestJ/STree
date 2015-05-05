@@ -81,8 +81,8 @@ and open the template in the editor.
             // device APIs are available
             //
             function onDeviceReady() {
-                pictureSource=navigator.camera.PictureSourceType;
-                destinationType=navigator.camera.DestinationType;
+                pictureSource= navigator.camera.PictureSourceType;
+                destinationType= navigator.camera.DestinationType;
             }
             // limit the number of lines that users can enter into the comment area
             function limitLines(obj, e) {
@@ -142,7 +142,7 @@ and open the template in the editor.
                 location = 'Latitude: '          + position.coords.latitude          + '\n' +
                            'Longitude: '         + position.coords.longitude         + '\n' +
                            'Timestamp: '         + position.timestamp                + '\n';
-                alert(location);   
+                //alert(location);   
             };
 
             // onError Callback receives a PositionError object
@@ -154,10 +154,11 @@ and open the template in the editor.
 
             // take the photo
             function capturePhoto() {
+                alert("navigator.camera " + navigator.camera);
                 // Take picture using device camera and retrieve image as base64-encoded string
                 navigator.camera.getPicture(onPhotoDataSuccess, onPhotoFail, { quality: 50,
                   destinationType: destinationType.DATA_URL });
-                alert("taking pic");
+                //alert("taking pic");
             }
 
             // Called when a photo is successfully retrieved
