@@ -82,6 +82,7 @@ and open the template in the editor.
             // device APIs are available
             //
             function onDeviceReady() {
+                alert('device ready');
                 pictureSource= navigator.camera.PictureSourceType;
                 destinationType= navigator.camera.DestinationType;
             }
@@ -156,11 +157,10 @@ and open the template in the editor.
 
             // take the photo
             function capturePhoto() {
-                alert('navigator.camera ' + navigator.camera);
+                alert('navigator.camera ' + navigator.camera +', destinationType: '+ destinationType);
                 // Take picture using device camera and retrieve image as base64-encoded string
-                navigator.camera.getPicture(onPhotoDataSuccess, onPhotoFail, { quality: 50,
-                  destinationType: destinationType.DATA_URL });
-                //alert("taking pic");
+                navigator.camera.getPicture( onPhotoDataSuccess, onPhotoFail, { quality: 50,
+                    destinationType: destinationType.DATA_URL });
             }
 
             // Called when a photo is successfully retrieved
