@@ -24,7 +24,9 @@ and open the template in the editor.
             var imageString;     // store the image to be uploaded   
             
             var keynum, lines = 1;
-            var location;
+            var lati;
+            var langti;
+            var timeS;
             // Wait for device API libraries to load
             //
  
@@ -93,9 +95,12 @@ and open the template in the editor.
             // current GPS coordinates
             //
             var onLocationSuccess = function(position) {
-                location = 'Latitude: '          + position.coords.latitude          + '\n' +
-                           'Longitude: '         + position.coords.longitude         + '\n' +
-                           'Timestamp: '         + position.timestamp                + '\n';
+                lati = position.coords.latitude;
+                langti =  position.coords.longitude;
+                timeS = position.timestamp;
+//                            'Latitude: '          + position.coords.latitude          + '\n' +
+//                           'Longitude: '         + position.coords.longitude         + '\n' +
+//                           'Timestamp: '         + position.timestamp                + '\n';
                 //alert(location);   
             };
 
@@ -108,8 +113,6 @@ and open the template in the editor.
 
             // take the photo
             function capturePhoto() {
-                alert('navigator.camera ' + navigator.camera +', destinationType: '+ destinationType);
-                // Take picture using device camera and retrieve image as base64-encoded string
                 navigator.camera.getPicture( onPhotoDataSuccess, onPhotoFail, { quality: 50,
                     destinationType: destinationType.DATA_URL });
             }
@@ -127,10 +130,6 @@ and open the template in the editor.
                 // Unhide image elements
                 //
                 smallImage.style.display = 'block';
-              //  smallImage.style.left = '60px';
-                // Show the captured photo
-                // The in-line CSS rules are used to resize the image
-                //
                 smallImage.src = "data:image/jpeg;base64," + imageData;
                 imageString = imageData;
             }    
@@ -155,7 +154,7 @@ and open the template in the editor.
                 options.params = params;
 
                 var ft = new FileTransfer();
-                alert("Uploading data to server. Your location: "+ location);
+                alert('Uploading data to server. Your location: '+ lati +'\n' + langti +'\n' + timeS );
                 ft.upload(imageString, "http://www.springbaystudio.com/tree/upload.php", win, fail, options, true);
 
              }
