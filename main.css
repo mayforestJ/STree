@@ -22,7 +22,7 @@ p#hint {
 
 #button-group {
     position: absolute;
-    top: 0px;    
+    top: 6px;    
     background: lightgoldenrodyellow;   
     display:none;
 }

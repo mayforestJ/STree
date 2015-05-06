@@ -29,7 +29,6 @@ and open the template in the editor.
             //
  
             ( function(){
-                console.log("started");
                 document.addEventListener("deviceready", onDeviceReady, false);        
               //  $('button-group').hide();
             })();
@@ -37,7 +36,6 @@ and open the template in the editor.
             // device APIs are available
             //
             function onDeviceReady() {
-                alert('device ready');
                 pictureSource= navigator.camera.PictureSourceType;
                 destinationType= navigator.camera.DestinationType;
             }
@@ -61,12 +59,6 @@ and open the template in the editor.
             }
             
             function getBarcde(){
-                    var firstPage = document.getElementById('firstBtn');
-                //    firstPage.hide();
-                    firstPage.style.display ='none';
-                    var secondPage = document.getElementById('button-group');
-                    secondPage.style.display = 'block';
-                //    secondPage.fadeIn(300);
                 cordova.plugins.barcodeScanner.scan(onBarcodeSuccess,onBarcodeErr);
             }
 
@@ -88,7 +80,7 @@ and open the template in the editor.
                 //    firstPage.hide();
                     firstPage.style.display ='none';
                     var secondPage = document.getElementById('button-group');
-                    secondPage.style.display = 'block';
+                    secondPage.style.display = 'inherit';
                 }
             }
 
@@ -134,8 +126,8 @@ and open the template in the editor.
 
                 // Unhide image elements
                 //
-                smallImage.style.display = 'inherit';
-
+                smallImage.style.display = 'tabel-cell';
+                smallImage.style.padding-left = 60px;
                 // Show the captured photo
                 // The in-line CSS rules are used to resize the image
                 //
