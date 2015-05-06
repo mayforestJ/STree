@@ -61,10 +61,12 @@ and open the template in the editor.
             }
             
             function getBarcde(){
-//                $('firstBtnz').fadeOut(300);
-//                    var secondPage= document.getElementById('button-group');
-//                    secondPage.style.display = 'block';
-//                    secondPage.fadeIn(300);
+                    var firstPage = document.getElementById('firstBtn');
+                //    firstPage.hide();
+                    firstPage.style.display ='none';
+                    var secondPage = document.getElementById('button-group');
+                    secondPage.style.display = 'block';
+                //    secondPage.fadeIn(300);
                 cordova.plugins.barcodeScanner.scan(onBarcodeSuccess,onBarcodeErr);
             }
 
@@ -83,10 +85,10 @@ and open the template in the editor.
                     //$('firstBtn').hide();
                     //$('firstBtn').fadeOut(300);
                     var firstPage = document.getElementById('firstBtn');
-                    firstPage.hide();
-                    var secondPage= document.getElementById('button-group');
+                //    firstPage.hide();
+                    firstPage.style.display ='none';
+                    var secondPage = document.getElementById('button-group');
                     secondPage.style.display = 'block';
-                    secondPage.fadeIn(300);
                 }
             }
 
