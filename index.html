@@ -183,42 +183,46 @@ and open the template in the editor.
     </head>
     <body>
         <div id="header">
-            <div id="firstBtn">
-                <h1>Welcome to Our Tree Caching Trail!</h1>
-                <button id="scan_Code" onClick="getBarcde();">Scan the QR Code</button>                
-                <p id="hint">
-                    You can find the QR codes in the tags attached to the trees.
-                </p>
-            </div>
-            
-            <div id="button-group">
-                <label id="tree_info">This is a Sugar Maple tree</label><br>
-                <div id="helpUs">
-                    <h3>Please Help Us to Know More About This Tree</h3>
-                    <img style="display:none;width:400px;height:400px;" id="smallImage" src="" />
-                    <button onClick="capturePhoto();">Take a picture of this Tree</button><br><br>
-              		<div id="comment">
-                            <h2>Anything that you observe abnormal?</h2>
-                            <form action="#">
-                                <ul>
-                                    <li>
-                                        <label for="comments">Your Observation Goes Here</label>
-                                        <textarea name="comments" cols="40" rows="5" onkeydown="return limitLines(this, event)"></textarea> 
-                                    </li>
-                                    <li>
-                                        <label for="name">Name: </label>
-                                        <input name="name" id="name">
-                                    </li>
-                                    <li>
-                                        <label for="email">Email Address: (optional)</label>
-                                        <input name="email" id="email">
-                                    </li>
-                                    <li>
-                                        <input type="submit" value="Submit" onClick="uploadPic()">
-                                    </li>
-                                </ul>
-                            </form>
+            <div id="outer">
+                <div id="inner">
+                    <div id="firstBtn">
+                        <h1>Welcome to Our Tree Caching Trail!</h1>
+                        <button id="scan_Code" onClick="getBarcde();">Scan the QR Code</button>                
+                        <p id="hint">
+                            You can find the QR codes in the tags attached to the trees.
+                        </p>
+                    </div>
+
+                    <div id="button-group">
+                        <label id="tree_info">This is a Sugar Maple tree</label><br>
+                        <div id="helpUs">
+                            <h3>Please Help Us to Know More About This Tree</h3>
+                            <img style="display:none;width:400px;height:400px;" id="smallImage" src="" />
+                            <button onClick="capturePhoto();">Take a picture of this Tree</button><br><br>
+                                <div id="comment">
+                                    <h2>Anything that you observe abnormal?</h2>
+                                    <form action="#">
+                                        <ul>
+                                            <li>
+                                                <label for="comments">Your Observation Goes Here</label>
+                                                <textarea name="comments" cols="40" rows="5" onkeydown="return limitLines(this, event)"></textarea> 
+                                            </li>
+                                            <li>
+                                                <label for="name">Name: </label>
+                                                <input name="name" id="name">
+                                            </li>
+                                            <li>
+                                                <label for="email">Email Address: (optional)</label>
+                                                <input name="email" id="email">
+                                            </li>
+                                            <li>
+                                                <input type="submit" value="Submit" onClick="uploadPic()">
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
